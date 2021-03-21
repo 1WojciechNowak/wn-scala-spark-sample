@@ -14,7 +14,7 @@ trait Transforming {
     inputTransformer(input)(toIPAddressTransformer)
 
   def ipAddressScopeToIpNumberScope(ipAddresses: Scope[IPAddress]): Scope[IPNumber] =
-    tupleTransformer(ipAddresses)(ipv4ToNumberTransformer)
+    scopeTransformer(ipAddresses)(ipv4ToNumberTransformer)
 
   private def inputTransformer[T](input: Input)(f: String => Try[T]): Try[Scope[T]] = for {
     left <- f(input.left)
@@ -27,7 +27,7 @@ trait Transforming {
       "At lease one of arguments do not fit to IPV4 pattern."))
   }
 
-  private def tupleTransformer[A, B](scope: Scope[A])(f: A => B): Scope[B] = scope match {
+  private def scopeTransformer[A, B](scope: Scope[A])(f: A => B): Scope[B] = scope match {
     case Scope(s, e) => Scope(f(s), f(e))
   }
 

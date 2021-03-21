@@ -6,19 +6,19 @@ import org.apache.spark.sql.Dataset
 
 import ai.wojciechnowak.app.Config._
 
-object MainBoot extends App with Transforming{
+object MainBoot extends App with Transforming {
 
   import Env.spark.implicits._
   val inputDS: Dataset[Input] = InputReader
     .readCsv("simple_input")
     .as[Input]
 
-  val ipAddressTupleDS: Dataset[Scope[IPAddress]] =
+  val ipAddressScopeDS: Dataset[Scope[IPAddress]] =
     inputDS.map(inputToIpAddressScope)
       .flatMap(_.toOption)
 
-  val ipNumberTupleDS: Dataset[Scope[IPNumber]] =
-    ipAddressTupleDS.map(ipAddressScopeToIpNumberScope)
-  
-  ipNumberTupleDS.show()
+  val ipNumberScopeDS: Dataset[Scope[IPNumber]] =
+    ipAddressScopeDS.map(ipAddressScopeToIpNumberScope)
+
+  ipNumberScopeDS.show()
 }

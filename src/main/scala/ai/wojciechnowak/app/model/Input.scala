@@ -1,5 +1,3 @@
 package ai.wojciechnowak.app.model
 
-class Input {
-
-}
+case class Input(left: String, right: String)

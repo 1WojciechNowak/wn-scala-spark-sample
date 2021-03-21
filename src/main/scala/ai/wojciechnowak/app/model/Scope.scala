@@ -1,5 +1,4 @@
 package ai.wojciechnowak.app.model
 
-class Scope {
+case class Scope[T](start: T, end: T)
 
-}
