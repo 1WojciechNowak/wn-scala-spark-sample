@@ -1,6 +1,6 @@
 package ai.wojciechnowak.app.functions
 
-import ai.wojciechnowak.app.model.{IPAddress, Input, Scope}
+import ai.wojciechnowak.app.model.{IPAddress, IPNumber, Input, Scope}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 
@@ -47,6 +47,23 @@ class TransformingSpec extends AnyWordSpecLike
       val ipNumberScope = ipAddressScopeToIpNumberScope(testIPAddressScope)
       ipNumberScope.start.number shouldBe 3320383400L
       ipNumberScope.end.number shouldBe 3387492256L
+    }
+  }
+
+  "Calling ipNumberScopeToIpNumberSet" should {
+    "transform scope of ipNumber to sequential set of ipNumbers" in {
+      val testIPNumberScope = Scope(IPNumber(5), IPNumber(7))
+
+      val ipNumberSet = ipNumberScopeToIpNumberSet(testIPNumberScope)
+
+      ipNumberSet shouldBe Set(IPNumber(5),IPNumber(6),IPNumber(7))
+    }
+    "transform single number within scope to set with this number" in {
+      val testIPNumberScope = Scope(IPNumber(3), IPNumber(3))
+
+      val ipNumberSet = ipNumberScopeToIpNumberSet(testIPNumberScope)
+
+      ipNumberSet shouldBe Set(IPNumber(3))
     }
   }
 }
