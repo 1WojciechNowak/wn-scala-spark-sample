@@ -9,12 +9,21 @@ trait Transforming {
 
   // Simplified version of IPV4 regex. It is not enough to validate IPV4 with Regex below!
   private val IPV4_PATTERN: Regex = raw"""([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})""".r
+  private val STEP: Long = 1L
 
   def inputToIpAddressScope(input: Input): Try[Scope[IPAddress]] =
     inputTransformer(input)(toIPAddressTransformer)
 
   def ipAddressScopeToIpNumberScope(ipAddresses: Scope[IPAddress]): Scope[IPNumber] =
     scopeTransformer(ipAddresses)(ipv4ToNumberTransformer)
+
+  def ipNumberScopeToIpAddressScope(ipNumbers: Scope[IPNumber]): Scope[IPAddress] =
+    scopeTransformer(ipNumbers)(ipNumberToIPV4Transformer)
+
+  def ipNumberScopeToIpNumberSet(scope: Scope[IPNumber]): Set[IPNumber] =
+    Range.Long.inclusive(scope.start.number, scope.end.number, STEP)
+      .map(IPNumber(_))
+      .toSet
 
   private def inputTransformer[T](input: Input)(f: String => Try[T]): Try[Scope[T]] = for {
     left <- f(input.left)
@@ -32,5 +41,6 @@ trait Transforming {
   }
 
   private val ipv4ToNumberTransformer: IPAddress => IPNumber = ipv4 => IPNumber(ipv4)
+  private val ipNumberToIPV4Transformer: IPNumber => IPAddress = ipNumber => IPAddress(ipNumber)
 }
 
