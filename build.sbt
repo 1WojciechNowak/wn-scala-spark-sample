@@ -9,3 +9,5 @@ libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.1.1"
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.5"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.5" % "test"
+
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.19"

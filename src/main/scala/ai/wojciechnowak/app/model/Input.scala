@@ -1,3 +1,3 @@
 package ai.wojciechnowak.app.model
 
-case class Input(left: String, right: String)
+case class Input(c_left: String, c_right: String)

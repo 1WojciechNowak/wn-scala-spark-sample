@@ -26,8 +26,8 @@ trait Transforming {
       .toSet
 
   private def inputTransformer[T](input: Input)(f: String => Try[T]): Try[Scope[T]] = for {
-    left <- f(input.left)
-    right <- f(input.right)
+    left <- f(input.c_left)
+    right <- f(input.c_right)
   } yield Scope(left, right)
 
   private val toIPAddressTransformer: String => Try[IPAddress] = {

@@ -5,7 +5,7 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 object Config {
 
   implicit val inputSchema: StructType = StructType(Array(
-    StructField("left", StringType, nullable = false),
-    StructField("right", StringType, nullable = false)
+    StructField("c_left", StringType, nullable = false),
+    StructField("c_right", StringType, nullable = false)
   ))
 }

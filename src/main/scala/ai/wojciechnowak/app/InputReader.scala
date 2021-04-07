@@ -14,4 +14,15 @@ object InputReader {
       .schema(schema)
       .load(s"src/main/resources/data/$filename.csv")
   }
+
+  def readTable(tableName: String): DataFrame = {
+    Env.spark.read
+      .format("jdbc")
+      .option("driver", "org.postgresql.Driver")
+      .option("url", "jdbc:postgresql://db:5432/postgres")
+      .option("user", "postgres")
+      .option("password", "password")
+      .option("dbtable", s"public.$tableName")
+      .load()
+  }
 }

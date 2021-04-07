@@ -10,7 +10,7 @@ object MainBoot extends App with Transforming with Merging with Reducing {
 
   // Data Loading
   val inputDS: Dataset[Input] = InputReader
-    .readCsv("sample_input")
+    .readTable("inputs")
     .as[Input]
 
   // Preprocessing
