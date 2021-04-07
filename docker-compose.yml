@@ -1,9 +1,9 @@
 version: '3'
-services
+services:
   db:
     image: 'postgres:latest'
     volumes:
-      - /db:/docker-entrypoint-initdb.d/
+      - ./db:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     environment:
@@ -12,8 +12,8 @@ services
     build:
       context: .
       dockerfile: Dockerfile
-      links:
-        - db
+    links:
+      - db
   tests:
     build:
       context: .

@@ -1,5 +1,6 @@
 FROM mozilla/sbt:latest
 
 WORKDIR usr/app
-COPY ./ /
+COPY ./ ./
+
 CMD ["sbt", "run"]
