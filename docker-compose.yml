@@ -14,8 +14,3 @@ services:
       dockerfile: Dockerfile
     links:
       - db
-  tests:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: [ "sbt", "test" ]
